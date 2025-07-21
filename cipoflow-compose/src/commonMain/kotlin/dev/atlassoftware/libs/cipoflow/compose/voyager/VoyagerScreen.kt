@@ -21,8 +21,9 @@ import kotlinx.coroutines.launch
  */
 data class VoyagerScreen(
     private val screenDefinition: ScreenDefinition,
-    private val screenProvider: (id:String) -> ScreenDefinition
+    private val screenProvider: (id:String) -> VoyagerScreen
 ) : Screen {
+    override val key: String = screenDefinition.id
 
     @Composable
     override fun Content() {
@@ -30,10 +31,11 @@ data class VoyagerScreen(
         val coroutineScope = rememberCoroutineScope()
         val snackbarHostState = remember { SnackbarHostState() }
 
+
        //  The action handler translates low-code Actions into Voyager/Compose actions.
         val onAction: (Action) -> Unit = { action ->
             when (action) {
-                is Action.Navigate -> navigator.push(VoyagerScreen(screenProvider(action.screenId),screenProvider))
+                is Action.Navigate -> navigator.push(screenProvider(action.screenId))
                 is Action.GoBack -> navigator.pop()
                 is Action.ShowToast -> {
                     // Use a Snackbar for a better user experience than println

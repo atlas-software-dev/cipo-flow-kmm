@@ -10,14 +10,21 @@ import dev.atlassoftware.libs.cipoflow.core.model.screen.ScreenDefinition
 fun CipoFlowComposeApp(
     block: CipoFlowAppBuilder.() -> Unit) {
     val app = remember { CipoFlowAppBuilder().apply(block).build() }
-    val screenProvider = remember(app) {
-        { screenId: String ->
-            app.screens.find { it.id == screenId }
-                ?: throw IllegalArgumentException("Screen with id '$screenId' not found in app definition.")
+    val screenCache = remember { mutableMapOf<String, VoyagerScreen>() }
+    val screenProvider = remember(app, screenCache) {
+        lateinit var provider: (String) -> VoyagerScreen
+        provider = { screenId ->
+            screenCache.getOrPut(screenId) {
+                val definition = app.screens.find { it.id == screenId }
+                    ?: throw IllegalArgumentException("Screen with id '$screenId' not found in app definition.")
+                // Passa a referência da própria lambda para a tela, permitindo a navegação futura.
+                VoyagerScreen(definition, provider)
+            }
         }
+        provider
     }
-    val firstScreen = remember(app) { app.getStartScreen() }
-    Navigator(VoyagerScreen(firstScreen, screenProvider))
+    val firstScreen = remember(app, screenProvider) { screenProvider(app.getStartScreen().id) }
+    Navigator(firstScreen)
 }
 
 
