@@ -25,6 +25,8 @@ kotlin {
     iosSimulatorArm64()
 
     sourceSets {
+        androidMain.dependencies {
+        }
         commonMain.dependencies {
                 //put your multiplatform dependencies here
                 implementation(project(":cipoflow-core"))

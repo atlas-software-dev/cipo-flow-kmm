@@ -17,5 +17,5 @@ dependencyResolutionManagement {
 
 rootProject.name = "cipoflow"
 include(":cipoflow-core")
-
 include(":cipoflow-compose")
+include(":composeApp")

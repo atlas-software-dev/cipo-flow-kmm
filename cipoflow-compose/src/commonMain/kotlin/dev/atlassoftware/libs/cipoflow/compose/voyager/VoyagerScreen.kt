@@ -8,6 +8,8 @@ import androidx.compose.runtime.*
 import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
+import dev.atlassoftware.libs.cipoflow.compose.config.LocalScreenProvider
+import dev.atlassoftware.libs.cipoflow.compose.config.LocalScreenRegistry
 import dev.atlassoftware.libs.cipoflow.compose.renderer.ScreenRenderer
 import dev.atlassoftware.libs.cipoflow.core.model.action.Action
 import dev.atlassoftware.libs.cipoflow.core.model.screen.ScreenDefinition
@@ -20,10 +22,9 @@ import kotlinx.coroutines.launch
  * @param screenId The unique ID of the screen to render, which must exist in the [screenRegistry].
  */
 data class VoyagerScreen(
-    private val screenDefinition: ScreenDefinition,
-    private val screenProvider: (id:String) -> VoyagerScreen
+    private val screenId: String
 ) : Screen {
-    override val key: String = screenDefinition.id
+    override val key: String = screenId
 
     @Composable
     override fun Content() {
@@ -31,6 +32,13 @@ data class VoyagerScreen(
         val coroutineScope = rememberCoroutineScope()
         val snackbarHostState = remember { SnackbarHostState() }
 
+        val screenRegistry = LocalScreenRegistry.current
+        val screenProvider = LocalScreenProvider.current
+
+        val screenDefinition = remember(screenId) {
+            screenRegistry[screenId]
+                ?: throw IllegalArgumentException("Tela com id '$screenId' não encontrada no registro.")
+        }
 
        //  The action handler translates low-code Actions into Voyager/Compose actions.
         val onAction: (Action) -> Unit = { action ->
