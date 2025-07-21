@@ -5,10 +5,12 @@ plugins {
     alias(libs.plugins.kotlinMultiplatform)
     alias(libs.plugins.androidLibrary)
     alias(libs.plugins.vanniktech.mavenPublish)
+    alias(libs.plugins.compose.multiplatform)
+    alias(libs.plugins.kotlin.plugin.compose)
 }
 
 group = "dev.atlassoftware.libs"
-version = "1.0.0-SNAPSHOT"
+version = "1.0.0"
 
 kotlin {
     androidTarget {
@@ -23,16 +25,26 @@ kotlin {
     iosSimulatorArm64()
 
     sourceSets {
-        val commonMain by getting {
-            dependencies {
+        commonMain.dependencies {
                 //put your multiplatform dependencies here
                 implementation(project(":cipoflow-core"))
-            }
+
+                // Compose dependencies (managed by the compose plugin)
+                api(compose.runtime)
+                api(compose.foundation)
+                api(compose.material3)
+                api(compose.ui)
+                api(compose.materialIconsExtended)
+
+                // Voyager navigation library dependencies
+                api(libs.voyager.navigator)
+                api(libs.voyager.screenmodel)
+                api(libs.voyager.transitions)
+
         }
-        val commonTest by getting {
-            dependencies {
+        commonTest.dependencies {
                 implementation(libs.kotlin.test)
-            }
+
         }
     }
 }

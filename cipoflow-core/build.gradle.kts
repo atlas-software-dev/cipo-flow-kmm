@@ -1,3 +1,4 @@
+import com.android.build.gradle.internal.ide.kmp.KotlinAndroidSourceSetMarker.Companion.android
 import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
@@ -8,7 +9,7 @@ plugins {
 }
 
 group = "dev.atlassoftware.libs"
-version = "1.0.0-SNAPSHOT"
+version = "1.0.0"
 
 kotlin {
     androidTarget {
@@ -26,6 +27,7 @@ kotlin {
         val commonMain by getting {
             dependencies {
                 //put your multiplatform dependencies here
+
             }
         }
         val commonTest by getting {
