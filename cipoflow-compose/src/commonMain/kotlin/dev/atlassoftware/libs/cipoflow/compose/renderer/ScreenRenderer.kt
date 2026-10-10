@@ -25,7 +25,7 @@ object ScreenRenderer {
 
     @OptIn(ExperimentalMaterial3Api::class)
     @Composable
-    fun render(
+    fun Render(
         screenDefinition: ScreenDefinition,
         showBackButton: Boolean,
         actionDelegate: (Action) -> Unit,

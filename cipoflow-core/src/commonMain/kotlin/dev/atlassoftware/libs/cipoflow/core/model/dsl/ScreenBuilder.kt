@@ -5,6 +5,9 @@ import dev.atlassoftware.libs.cipoflow.core.model.component.Section
 import dev.atlassoftware.libs.cipoflow.core.model.component.Spacer
 import dev.atlassoftware.libs.cipoflow.core.model.component.Text
 import dev.atlassoftware.libs.cipoflow.core.model.component.Button
+import dev.atlassoftware.libs.cipoflow.core.model.component.Image
+import dev.atlassoftware.libs.cipoflow.core.model.component.ImageAlignment
+import dev.atlassoftware.libs.cipoflow.core.model.component.ScaleType
 import dev.atlassoftware.libs.cipoflow.core.model.screen.ScreenDefinition
 import dev.atlassoftware.libs.cipoflow.core.model.action.Action as UiAction
 
@@ -65,6 +68,11 @@ class ContentBuilder {
         components.add(Spacer(id, heightInDp))
     }
 
+    /** Adds an image component. */
+    fun image(id: String, block: ImageBuilder.() -> Unit) {
+        components.add(ImageBuilder(id).apply(block).build())
+    }
+
     fun build(): List<ScreenComponent> = components
 }
 
@@ -92,4 +100,26 @@ class ButtonBuilder(private val id: String) {
     }
 
     fun build(): Button = Button(id, text, action)
+}
+
+@ScreenDsl
+class ImageBuilder(private val id: String) {
+    var url: String = ""
+    var contentDescription: String? = null
+    var scaleType: ScaleType = ScaleType.Fit
+    var cornerRadius: Int = 0
+    var width: Int? = null
+    var height: Int? = null
+    var alignment: ImageAlignment = ImageAlignment.Center
+
+    fun build(): Image = Image(
+        id = id,
+        url = url,
+        contentDescription = contentDescription,
+        scaleType = scaleType,
+        cornerRadius = cornerRadius,
+        width = width,
+        height = height,
+        alignment = alignment
+    )
 }

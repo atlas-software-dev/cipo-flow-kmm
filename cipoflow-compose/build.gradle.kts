@@ -26,27 +26,26 @@ kotlin {
 
     sourceSets {
         androidMain.dependencies {
+            implementation(libs.coil.network.okhttp)
         }
         commonMain.dependencies {
-                //put your multiplatform dependencies here
                 implementation(project(":cipoflow-core"))
 
-                // Compose dependencies (managed by the compose plugin)
+                // Compose dependencies
                 api(compose.runtime)
                 api(compose.foundation)
                 api(compose.material3)
                 api(compose.ui)
                 api(compose.materialIconsExtended)
 
-                // Voyager navigation library dependencies
-                api(libs.voyager.navigator)
-                api(libs.voyager.screenmodel)
-                api(libs.voyager.transitions)
+                // Navigation Compose
+                api(libs.navigation.compose)
 
+                // Coil
+                api(libs.coil.compose)
         }
         commonTest.dependencies {
                 implementation(libs.kotlin.test)
-
         }
     }
 }
@@ -68,24 +67,11 @@ android {
         }
     }
 }
-//
-//signing {
-//    val signingKeyId = project.findProperty("signing.keyId")?.toString()
-//
-//    // Apenas tenta assinar se o ID da chave for encontrado
-//    if (signingKeyId != null) {
-//        useGpgCmd() // Usa o GPG externo
-//        sign(publishing.publications)
-//    }
-//}
 
 mavenPublishing {
     publishToMavenCentral()
-
     signAllPublications()
-
     coordinates(group.toString(), "cipoflow-compose", version.toString())
-
     pom {
         name = "Cipo Flow compose KMM library"
         description = "A Framework to low-code building apps, with compose support"
