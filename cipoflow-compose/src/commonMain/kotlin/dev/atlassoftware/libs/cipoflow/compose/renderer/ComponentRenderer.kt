@@ -3,12 +3,14 @@ package dev.atlassoftware.libs.cipoflow.compose.renderer
 import androidx.compose.runtime.Composable
 import dev.atlassoftware.libs.cipoflow.compose.renderer.components.RenderButton
 import dev.atlassoftware.libs.cipoflow.compose.renderer.components.RenderImage
+import dev.atlassoftware.libs.cipoflow.compose.renderer.components.RenderInput
 import dev.atlassoftware.libs.cipoflow.compose.renderer.components.RenderSection
 import dev.atlassoftware.libs.cipoflow.compose.renderer.components.RenderSpacer
 import dev.atlassoftware.libs.cipoflow.compose.renderer.components.RenderText
 import dev.atlassoftware.libs.cipoflow.core.model.action.Action
 import dev.atlassoftware.libs.cipoflow.core.model.component.Button
 import dev.atlassoftware.libs.cipoflow.core.model.component.Image
+import dev.atlassoftware.libs.cipoflow.core.model.component.Input
 import dev.atlassoftware.libs.cipoflow.core.model.component.ScreenComponent
 import dev.atlassoftware.libs.cipoflow.core.model.component.Section
 import dev.atlassoftware.libs.cipoflow.core.model.component.Spacer
@@ -29,5 +31,6 @@ fun ComponentRenderer(component: ScreenComponent, onAction: (Action) -> Unit) {
         is Section -> RenderSection(component, onAction)
         is Spacer -> RenderSpacer(component)
         is Image -> RenderImage(component)
+        is Input -> RenderInput(component, onAction)
     }
 }

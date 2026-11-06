@@ -27,6 +27,10 @@ fun App() {
                                     text = "Go to Profile"
                                     onClick(Action.Navigate("profile"))
                                 }
+                                button("form_button") {
+                                    text = "Open Form Input Demo"
+                                    onClick(Action.Navigate("form"))
+                                }
                                 button("settings_button") {
                                     text = "Show a Toast"
                                     onClick(Action.ShowToast("Hello from the DSL!"))
@@ -53,6 +57,42 @@ fun App() {
                         button("back_button") {
                             text = "Go Back"
                             onClick(Action.GoBack)
+                        }
+                    }
+                },
+                screen("form") {
+                    title = "Form Input Demo"
+                    content {
+                        section("form_section") {
+                            title = "User Form"
+                            items {
+                                input("full_name") {
+                                    label = "Full Name"
+                                    placeholder = "Enter your full name"
+                                    textType(isSingleLine = true)
+                                    isRequired = true
+                                }
+                                input("user_email") {
+                                    label = "Email Address"
+                                    placeholder = "e.g. user@example.com"
+                                    textType(isSingleLine = true)
+                                }
+                                input("user_age") {
+                                    label = "Age"
+                                    placeholder = "Enter your age"
+                                    numberType()
+                                }
+                                input("birth_date") {
+                                    label = "Birth Date"
+                                    placeholder = "YYYY-MM-DD"
+                                    dateType()
+                                }
+                                spacer("form_spacer", 16)
+                                button("submit_btn") {
+                                    text = "Submit Form"
+                                    onClick(Action.ShowToast("Form submitted!"))
+                                }
+                            }
                         }
                     }
                 }

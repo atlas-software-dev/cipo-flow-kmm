@@ -62,6 +62,8 @@ fun CipoFlowComposeApp(
                                     )
                                 }
                             }
+
+                            is Action.InputChanged -> {}
                         }
                     }
 

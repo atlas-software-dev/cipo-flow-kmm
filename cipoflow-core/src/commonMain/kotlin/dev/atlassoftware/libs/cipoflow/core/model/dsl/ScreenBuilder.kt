@@ -1,13 +1,15 @@
 package dev.atlassoftware.libs.cipoflow.core.model.dsl
 
+import dev.atlassoftware.libs.cipoflow.core.model.component.Button
+import dev.atlassoftware.libs.cipoflow.core.model.component.Image
+import dev.atlassoftware.libs.cipoflow.core.model.component.ImageAlignment
+import dev.atlassoftware.libs.cipoflow.core.model.component.Input
+import dev.atlassoftware.libs.cipoflow.core.model.component.InputType
+import dev.atlassoftware.libs.cipoflow.core.model.component.ScaleType
 import dev.atlassoftware.libs.cipoflow.core.model.component.ScreenComponent
 import dev.atlassoftware.libs.cipoflow.core.model.component.Section
 import dev.atlassoftware.libs.cipoflow.core.model.component.Spacer
 import dev.atlassoftware.libs.cipoflow.core.model.component.Text
-import dev.atlassoftware.libs.cipoflow.core.model.component.Button
-import dev.atlassoftware.libs.cipoflow.core.model.component.Image
-import dev.atlassoftware.libs.cipoflow.core.model.component.ImageAlignment
-import dev.atlassoftware.libs.cipoflow.core.model.component.ScaleType
 import dev.atlassoftware.libs.cipoflow.core.model.screen.ScreenDefinition
 import dev.atlassoftware.libs.cipoflow.core.model.action.Action as UiAction
 
@@ -73,6 +75,28 @@ class ContentBuilder {
         components.add(ImageBuilder(id).apply(block).build())
     }
 
+    /** Adds an input component using a builder. */
+    fun input(id: String, block: InputBuilder.() -> Unit) {
+        components.add(InputBuilder(id).apply(block).build())
+    }
+
+    /** Adds a simple text input component. */
+    fun textInput(
+        id: String,
+        label: String? = null,
+        placeholder: String? = null,
+        initialValue: String = ""
+    ) {
+        components.add(
+            Input(
+                id = id,
+                label = label,
+                placeholder = placeholder,
+                initialValue = initialValue
+            )
+        )
+    }
+
     fun build(): List<ScreenComponent> = components
 }
 
@@ -121,5 +145,56 @@ class ImageBuilder(private val id: String) {
         width = width,
         height = height,
         alignment = alignment
+    )
+}
+
+@ScreenDsl
+class InputBuilder(private val id: String) {
+    var label: String? = null
+    var placeholder: String? = null
+    var initialValue: String = ""
+    var inputType: InputType = InputType.Text()
+    var isRequired: Boolean = false
+    var isEnabled: Boolean = true
+    var isReadOnly: Boolean = false
+    var errorMessage: String? = null
+    var helperText: String? = null
+    var onValueChangeAction: UiAction? = null
+
+    /** Sets the input type to Text with custom parameters. */
+    fun textType(
+        isSingleLine: Boolean = true,
+        maxLines: Int = 1,
+        isPassword: Boolean = false
+    ) {
+        inputType = InputType.Text(
+            isSingleLine = isSingleLine,
+            maxLines = maxLines,
+            isPassword = isPassword
+        )
+    }
+
+    /** Sets the input type to Number (integer or decimal). */
+    fun numberType(isDecimal: Boolean = false) {
+        inputType = InputType.Number(isDecimal = isDecimal)
+    }
+
+    /** Sets the input type to Date with optional format. */
+    fun dateType(format: String = "yyyy-MM-dd") {
+        inputType = InputType.Date(format = format)
+    }
+
+    fun build(): Input = Input(
+        id = id,
+        label = label,
+        placeholder = placeholder,
+        initialValue = initialValue,
+        inputType = inputType,
+        isRequired = isRequired,
+        isEnabled = isEnabled,
+        isReadOnly = isReadOnly,
+        errorMessage = errorMessage,
+        helperText = helperText,
+        onValueChangeAction = onValueChangeAction
     )
 }
