@@ -2,7 +2,7 @@
 <p align="center">
   <!-- Substitua a URL abaixo pela imagem da sua logo -->
   <a href="https://github.com/atlas-software-dev/cipo-flow-kmm">
-    <img src="https://via.placeholder.com/200x200.png?text=CIPO+FLOW+LOGO" alt="Cipo Flow KMM Logo" width="200"/>
+    <img src="https://github.com/atlas-software-dev/cipo-flow-kmm/blob/main/1.png" alt="Cipo Flow KMM Logo" width="200"/>
   </a>
 </p>
 
