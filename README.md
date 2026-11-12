@@ -14,7 +14,7 @@
 
 <p align="center">
   <a href="https://github.com/atlas-software-dev/cipo-flow-kmm/actions"><img src="https://img.shields.io/github/actions/workflow/status/atlas-software-dev/cipo-flow-kmm/build.yml?branch=main&style=flat-square" alt="Build Status"></a>
-  <a href="https://mvnrepository.com/artifact/dev.atlassoftware.libs/cipoflow-core"><img src="https://img.shields.io/maven-central/v/dev.atlas-software/cipo-flow-kmm.svg?style=flat-square" alt="Maven Central"></a>
+  <a href="https://mvnrepository.com/artifact/dev.atlassoftware.libs/cipoflow-core"><img src="https://img.shields.io/maven-central/v/dev.atlassoftware.libs/cipoflow-core.svg?style=flat-square" alt="Maven Central"></a>
   <a href="https://kotlinlang.org/docs/multiplatform.html"><img src="https://img.shields.io/badge/Kotlin-Multiplatform-blue.svg?style=flat-square&logo=kotlin" alt="Kotlin Multiplatform"></a>
   <a href="https://github.com/atlas-software-dev/cipo-flow-kmm/blob/main/LICENSE"><img src="https://img.shields.io/badge/License-Apache%202.0-blue.svg?style=flat-square" alt="License"></a>
 </p>
